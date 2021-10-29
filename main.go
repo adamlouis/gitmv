@@ -61,21 +61,21 @@ func main() {
 
 		_, err = os.Stat(dst)
 		if err != nil {
-			if yn(fmt.Sprintf("move %s to %s?", src, dst)) {
-				dstdir := filepath.Dir(dst)
-				if err := os.MkdirAll(dstdir, os.ModePerm); err != nil {
-					panic(err)
-				}
-				if os.IsNotExist(err) {
+			if os.IsNotExist(err) {
+				if yn(fmt.Sprintf("move %s to %s?", src, dst)) {
+					if err := os.MkdirAll(filepath.Dir(dst), os.ModePerm); err != nil {
+						panic(err)
+					}
 					if err := os.Rename(src, dst); err != nil {
 						panic(err)
 					}
-				} else {
-					panic(err)
 				}
+				continue
+			} else {
+				panic(err)
 			}
 		} else {
-			fmt.Println("already exists", dst)
+			fmt.Println("already exists:", dst)
 		}
 	}
 }
