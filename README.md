@@ -1,2 +1,3 @@
 # gitmv
-move git directories to path
+
+move git directories in cwd to filepath derived from remote origin
