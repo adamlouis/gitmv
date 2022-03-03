@@ -52,6 +52,8 @@ func main() {
 		url = rmPrefix(url, "git://")
 		url = rmPrefix(url, "git@")
 		url = rmSuffix(url, ".git")
+		url = rmSuffix(url, ".git")
+		url = strings.ReplaceAll(url, ":", "/")
 		url = strings.Replace(url, "github.com:", "github.com/", 1)
 
 		dst, err := filepath.Abs(filepath.Join(_base, url))
